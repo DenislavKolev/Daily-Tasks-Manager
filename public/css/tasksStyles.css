@@ -1,0 +1,22 @@
+#myTasks h1{
+    text-align: center;
+}
+#myTasks div:first-of-type{
+    display: flex;
+}
+#myTasks div:first-of-type span{
+    flex: 1;
+    font-size: 15px;
+}
+#prev{
+    text-align: left;
+}
+#date{
+    text-align: center;
+}
+#next{
+    text-align: right;
+}
+#myTasks table{
+    width: 100%;
+}
