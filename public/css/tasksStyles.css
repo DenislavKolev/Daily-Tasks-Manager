@@ -19,4 +19,17 @@
 }
 #myTasks table{
     width: 100%;
+    text-align: center;
+}
+#myTasks table thead{
+    background-color: #fe5452;
+    color: white;
+}
+#myTasks table th{
+    padding: 8px;
+    font-size: 19px;
+}
+#myTasks table tbody td{
+    padding: 10px 0;
+    font-size: 16px;
 }

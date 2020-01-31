@@ -6,7 +6,7 @@
                <h1>Моите задачи</h1>
                 <div>
                     <span id="prev">Назад</span>
-                    <span id="date">21.01.2020г.</span>
+                    <span id="date">{{$currentDay}}</span>
                     <span id="next">Напред</span>
                 </div>
                 <table>
@@ -20,7 +20,7 @@
 
                     @foreach($tasksArray  as $task)
 
-                        <tr>
+                        <tr id="{{$task['id']}}">
                             <td>{{$loop->index + 1}}</td>
                             <td>{{$task['text']}}</td>
                             @if($task['status'] == 'notCompleted')
@@ -29,8 +29,8 @@
                                 <td>Завършена</td>
                             @endif
                             <td>
-                                <span>Edit</span>
-                                <span>Remove</span>
+                                <button data-js="edit" class="btn btn-success" >Завърши</button>
+                                <button data-js="remove" class="btn btn-danger">Премахни</button>
                             </td>
                         </tr>
                        @endforeach

@@ -10,7 +10,14 @@ class Tasks extends Model
              'user_id', 'text', 'date', 'status'
          ];
 
-         public function scopeGetTasks($query, $user_id){
-            return $query -> where('user_id', $user_id)->select('text', 'status');
+         public function scopeRemoveTask($query, $id){
+             return $query->where('id', $id)->select();
+         }
+
+         public function scopeGetTasks($query, $user_id, $date){
+            return $query -> where([
+                'user_id' => $user_id,
+                'date' => $date,
+            ])->select('id', 'text', 'status');
          }
 }

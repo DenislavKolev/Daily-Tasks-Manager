@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Tasks;
 
@@ -25,7 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tasksArray = Tasks::GetTasks(Auth::id())->get()->toArray();
-        return view('home')->with('tasksArray', $tasksArray);
+        $currentDay = Carbon::now()->format('m-d-Y');
+
+        $tasksArray = Tasks::GetTasks(Auth::id(), Carbon::now()->format('Y-m-d'))->get()->toArray();
+        return view('home')->with([
+            'tasksArray'=> $tasksArray,
+            'currentDay' => $currentDay,
+            ]);
     }
 }

@@ -57,6 +57,13 @@ class TasksController extends Controller
         return back();
     }
 
+    public function remove(Request $request){
+
+        Tasks::RemoveTask($request->id)->delete();
+
+        return json_encode('Success');
+    }
+
     /**
      * Display the specified resource.
      *
