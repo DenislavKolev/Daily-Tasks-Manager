@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/addTask', 'TasksController@store')->name('task.store');
 
 Route::post('/removeTask', 'TasksController@remove')->name('task.remove');
+
+Route::post('/dayChanger', "HomeController@change");

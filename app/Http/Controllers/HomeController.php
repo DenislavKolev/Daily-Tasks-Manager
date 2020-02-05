@@ -6,11 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Tasks;
+use Illuminate\Support\Facades\Session;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
+     *
+     *
      *
      * @return void
      */
@@ -21,17 +25,45 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     *
+     * @param \Illuminate\Http\Request  $request
+     * @param int $days
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        $currentDay = Carbon::now()->format('m-d-Y');
 
-        $tasksArray = Tasks::GetTasks(Auth::id(), Carbon::now()->format('Y-m-d'))->get()->toArray();
+                if(Session::has('result')){
+                    $result =  Session::get('result') + Session::get('days');
+                    Session::put('result', $result);
+                    Session::forget('days');
+                }else{
+                    Session::put('result', 0);
+                }
+        $currentDay = Carbon::now()->format('d-M-Y');
+        $dayToDisplay = Carbon::now()->subDays(Session::get('result'))->format('d-M-Y');
+
+
+
+        $tasksArray = Tasks::GetTasks(Auth::id(), Carbon::now()->subDays(Session::get('result'))->format('Y-m-d'))->get()->toArray();
         return view('home')->with([
             'tasksArray'=> $tasksArray,
+            'dayToDisplay'=>$dayToDisplay,
             'currentDay' => $currentDay,
             ]);
     }
+
+    public function change(Request $request){
+
+        $days = (int)$request->days;
+
+        $request->session()->put([
+            'days' => $days,
+        ]);
+         return json_encode('Success');
+
+//
+    }
+
+
+
 }

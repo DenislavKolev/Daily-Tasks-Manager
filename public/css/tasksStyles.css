@@ -1,25 +1,43 @@
+#headerNav{
+    background-color: #fe5452;
+}
+#headerNav a:not(#logOut){
+    color: white;
+}
 #myTasks h1{
     text-align: center;
 }
-#myTasks div:first-of-type{
+#myTasks > div:last-of-type{
     display: flex;
 }
-#myTasks div:first-of-type span{
-    flex: 1;
-    font-size: 15px;
-}
-#prev{
-    text-align: left;
+#prev, #next{
+    flex: 0.1;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
 #date{
+    flex: 1;
     text-align: center;
 }
-#next{
-    text-align: right;
+#date span{
+    display: block;
+}
+#date span:first-of-type{
+    font-size: 19px;
+}
+#openModal{
+    font-size: 17px;
+    color: #fe5452;
+}
+#openModal{
+    text-shadow: 1px 0px 2px #c8c8c8;
+    cursor: pointer;
 }
 #myTasks table{
     width: 100%;
     text-align: center;
+    border: 1px solid #e8e8e8;
 }
 #myTasks table thead{
     background-color: #fe5452;
@@ -29,7 +47,17 @@
     padding: 8px;
     font-size: 19px;
 }
+#myTasks tr:nth-child(2n){
+    background-color: #fdfdfd;
+}
 #myTasks table tbody td{
     padding: 10px 0;
     font-size: 16px;
+}
+#modal form div:not(.modal-footer){
+    margin: 10px 0;
+}
+#modal form input:not([type=submit]){
+    width: 50%;
+    margin-left: 25%;
 }

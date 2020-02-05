@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tasks;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -41,6 +42,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->taskDate);
         $validator = Validator::make($request->all(), [
             'taskText' => 'required|min:5|max:300',
             'taskDate' => 'required'
@@ -52,7 +54,7 @@ class TasksController extends Controller
         Tasks::create([
             'user_id' => Auth::id(),
             'text' => $request->taskText,
-            'date' => $request->taskDate,
+            'date' => Carbon::parse($request->taskDate)->format('Y-m-d')
         ]);
         return back();
     }
