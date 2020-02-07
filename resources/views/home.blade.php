@@ -36,26 +36,48 @@
                         <tr id="{{$task['id']}}">
                             <td>{{$loop->index + 1}}</td>
                             <td>{{$task['text']}}</td>
-                            @if($task['status'] == 'notCompleted')
-                                <td>Не завършена</td>
-                            @else
-                                <td>Завършена</td>
-                            @endif
-                            <td>
-                                @if(\Illuminate\Support\Carbon::parse($currentDay) > \Illuminate\Support\Carbon::parse($dayToDisplay))
-                                     <button data-js="edit" disabled  class="btn btn-success" >Завърши</button>
+                        @if(\Illuminate\Support\Carbon::parse($currentDay) > \Illuminate\Support\Carbon::parse($dayToDisplay))
+                            <td>{{$task['status']}}</td>
+                                <td>
+                                    <button data-js="finish" disabled  class="btn btn-success" >Завърши</button>
                                     <button data-js="remove" disabled class="btn btn-danger">Премахни</button>
-
-                                @else
-                                    <button data-js="edit" class="btn btn-success" >Завърши</button>
-                                    <button data-js="remove" class="btn btn-danger">Премахни</button>
-                                @endif
-                            </td>
-                        </tr>
+                                </td>
+                        @elseif(\Illuminate\Support\Carbon::parse($currentDay) <= \Illuminate\Support\Carbon::parse($dayToDisplay) && $task['status'] == 'Незавършена')
+                                    <td>{{$task['status']}}</td>
+                                    <td>
+                                        <button data-js="finish"  class="btn btn-success" >Завърши</button>
+                                        <button data-js="remove"  class="btn btn-danger">Премахни</button>
+                                    </td>
+                        @elseif(\Illuminate\Support\Carbon::parse($currentDay) <= \Illuminate\Support\Carbon::parse($dayToDisplay) && $task['status'] == 'Завършена')
+                                <td>{{$task['status']}}</td>
+                                <td>
+                                    <button data-js="finish" disabled class="btn btn-success" >Завърши</button>
+                                    <button data-js="remove" disabled class="btn btn-danger">Премахни</button>
+                                </td>
+                            @endif
                        @endforeach
                     </tbody>
                 </table>
                     @endif
+
+                <section id="stat">
+                    <section id="toDo">
+                        <div>Задачи за изпълнение</div>
+                        <div>{{count($tasksArray)}}</div>
+                    </section>
+                    <section id="done">
+                        <div>Изпълнени задачи</div>
+                        <div>{{$counter}}</div>
+                    </section>
+                    <section id="progress">
+                        <div>Прогрес</div>
+                        @if(count($tasksArray) != 0 )
+                            <div>{{ number_format(($counter / count($tasksArray)) * 100), 0}}%</div>
+                            @else
+                        <div>0 %</div>
+                            @endif
+                    </section>
+                </section>
             </div>
         </div>
 

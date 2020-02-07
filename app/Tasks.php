@@ -20,4 +20,8 @@ class Tasks extends Model
                 'date' => $date,
             ])->select('id', 'text', 'status');
          }
+
+         public function scopeUpdateTask($query, $id){
+             return $query->where('id', $id)->select('status');
+         }
 }

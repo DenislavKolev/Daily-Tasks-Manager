@@ -39,16 +39,25 @@ class HomeController extends Controller
                 }else{
                     Session::put('result', 0);
                 }
-        $currentDay = Carbon::now()->format('d-M-Y');
+        $currentDay =  Carbon::now()->format('d-M-Y');
         $dayToDisplay = Carbon::now()->subDays(Session::get('result'))->format('d-M-Y');
 
 
 
         $tasksArray = Tasks::GetTasks(Auth::id(), Carbon::now()->subDays(Session::get('result'))->format('Y-m-d'))->get()->toArray();
-        return view('home')->with([
-            'tasksArray'=> $tasksArray,
-            'dayToDisplay'=>$dayToDisplay,
-            'currentDay' => $currentDay,
+
+        $counter = 0;
+        foreach ($tasksArray as $task){
+
+            if ($task['status'] == 'Завършена'){
+                $counter++;
+            }
+        }
+            return view('home')->with([
+                'tasksArray'=> $tasksArray,
+                'dayToDisplay'=>$dayToDisplay,
+                'currentDay' => $currentDay,
+                'counter' => $counter,
             ]);
     }
 
@@ -63,6 +72,7 @@ class HomeController extends Controller
 
 //
     }
+
 
 
 

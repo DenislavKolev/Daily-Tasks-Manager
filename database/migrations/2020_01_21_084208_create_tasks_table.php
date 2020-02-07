@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('user_id');
             $table->string('text');
             $table->date('date');
-            $table->enum('status', ['completed', 'notCompleted'])->default('notCompleted');
+            $table->enum('status', ['Завършена', 'Незавършена'])->default('Незавършена');
             $table->timestamps();
         });
     }

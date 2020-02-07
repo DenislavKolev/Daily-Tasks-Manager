@@ -54,6 +54,20 @@
     padding: 10px 0;
     font-size: 16px;
 }
+#stat{
+    display: flex;
+    margin-top: 2em;
+}
+#stat section{
+    flex: 1;
+    text-align: center;
+    font-size: 24px;
+    padding: .5em 0;
+    background-color: #fe5452;
+    color: white;
+    margin: 0 15px;
+    border-radius: 15px;
+}
 #modal form div:not(.modal-footer){
     margin: 10px 0;
 }

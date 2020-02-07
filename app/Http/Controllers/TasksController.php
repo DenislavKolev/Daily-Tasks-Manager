@@ -42,7 +42,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->taskDate);
+
         $validator = Validator::make($request->all(), [
             'taskText' => 'required|min:5|max:300',
             'taskDate' => 'required'
@@ -63,7 +63,7 @@ class TasksController extends Controller
 
         Tasks::RemoveTask($request->id)->delete();
 
-        return json_encode('Success');
+        return json_encode($request->id);
     }
 
     /**
@@ -92,12 +92,15 @@ class TasksController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        Tasks::UpdateTask($request->id)->update([
+            'status' => 'Завършена'
+        ]);
+        return json_encode($request->id);
     }
 
     /**
